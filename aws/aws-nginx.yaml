@@ -1,0 +1,23 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+
+imports:
+  - https://cloudify.co/spec/cloudify/6.2.0/types.yaml
+  - common/environment.yaml
+  - common/service.yaml
+
+data_types:
+  resource_config:
+    properties:
+      vpc_cidr:
+        type: string
+      subnet_cidr:
+        type: string
+      aws_region_name:
+        type: string
+      instance_type:
+        type: string
+
+inputs:
+  resource_config:
+    type: resource_config
