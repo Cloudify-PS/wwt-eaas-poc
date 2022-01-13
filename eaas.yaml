@@ -64,7 +64,29 @@ inputs:
         - 1.20.1-1~focal
         - 1.20.2-1~focal
 
+node_types:
+  cloudify.nodes.TTL:
+    derived_from: cloudify.nodes.ApplicationModule
+    properties:
+      ttl:
+        type: integer
+        description: |
+          Minutes of time to live after which the environment will be uninstalled
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: scripts/ttl/enable.py
+          executor: central_deployment_agent
+        stop:
+          implementation: scripts/ttl/disable.py
+          executor: central_deployment_agent
+
 node_templates:
+
+  ttl:
+    type: cloudify.nodes.TTL
+    properties:
+      ttl: { get_input: ttl }
 
   server:
     type: cloudify.nodes.ServiceComponent
