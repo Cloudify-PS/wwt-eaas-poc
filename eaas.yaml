@@ -133,6 +133,11 @@ node_templates:
                 playbook_path: { concat: [ "playbooks", "/", { get_input: app_type }, "/", "cleanup.yaml" ] }
                 sources: *sources
 
+outputs:
+  server_ips:
+    description: Web server IPs
+    value: { get_attributes_list: [server, capabilities] }
+
 groups:
   server_and_app:
     members: [server, app]
