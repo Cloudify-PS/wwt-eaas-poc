@@ -27,9 +27,6 @@ jobs:
           USER_KEY: ${{ secrets.USER_KEY }}
       - name: Check Connect VPN
         run: echo ${{ steps.connect_vpn.outputs.STATUS }}
-      - name: kill vpn
-        if: always()
-        run: sudo killall openvpn
       - name: Install or Update EaaS
         uses: jrzeszutek/install-or-update-action@v1.2.1
         with:
@@ -37,6 +34,9 @@ jobs:
           blueprint-id: $EAAS_BLUEPRINT_ID
           delete-old-blueprint: false
           inputs-file: ".github/inputs/inputs.yaml"
+      - name: kill vpn
+        if: always()
+        run: sudo killall openvpn
 
 env:
   CLOUDIFY_HOST: ${{ secrets.CLOUDIFY_HOST }}
