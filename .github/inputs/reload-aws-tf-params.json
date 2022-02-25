@@ -1,5 +1,5 @@
 {
-  "source": "https://github.com/marrowne/wwt-eaas-poc/archive/refs/heads/main.zip",
+  "source": "https://github.com/Cloudify-PS/wwt-eaas-poc/archive/refs/heads/main.zip",
   "source_path": "aws/templates/vm/",
   "node_ids": ["vm"],
   "force": true
