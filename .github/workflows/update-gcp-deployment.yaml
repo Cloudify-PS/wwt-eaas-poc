@@ -1,4 +1,4 @@
-name: Update Deployment
+name: Update GCP Deployment
 on:
   workflow_dispatch:
   push:
@@ -42,6 +42,6 @@ env:
   CLOUDIFY_PASSWORD: ${{ secrets.CLOUDIFY_PASSWORD }}
   CLOUDIFY_TENANT: ${{ secrets.CLOUDIFY_TENANT }}
   EAAS_BLUEPRINT_ID: ${{ secrets.EAAS_BLUEPRINT_ID }}
-  EAAS_DEPLOYMENT_ID: ${{ secrets.AWS_EAAS_DEPLOYMENT_ID }}
+  EAAS_DEPLOYMENT_ID: ${{ secrets.GCP_EAAS_DEPLOYMENT_ID }}
   CLOUDIFY_SSL: ${{ secrets.CLOUDIFY_SSL }}
   CLOUDIFY_SSL_TRUST_ALL: ${{ secrets.CLOUDIFY_SSL_TRUST_ALL }}

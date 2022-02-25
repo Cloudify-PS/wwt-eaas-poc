@@ -1,0 +1,47 @@
+name: Update AWS Deployment
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+    - .github/inputs/*
+jobs:
+  develop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Open VPN
+        run: sudo apt-get install openvpn
+      - name: Connect VPN
+        uses: golfzaptw/action-connect-ovpn@master
+        id: connect_vpn
+        with:
+          PING_URL: '127.0.0.1'
+          FILE_OVPN: '.github/vpn/config.ovpn'
+        env:
+          CA_CRT: ${{ secrets.CA_CRT}}
+          USER_CRT: ${{ secrets.USER_CRT }}
+          USER_KEY: ${{ secrets.USER_KEY }}
+      - name: Check Connect VPN
+        run: echo ${{ steps.connect_vpn.outputs.STATUS }}
+      - name: Install or Update EaaS
+        uses: jrzeszutek/install-or-update-action@v1.2.1
+        with:
+          environment-name: $EAAS_DEPLOYMENT_ID
+          blueprint-id: $EAAS_BLUEPRINT_ID
+          delete-old-blueprint: false
+          inputs-file: ".github/inputs/inputs.yaml"
+      - name: kill vpn
+        if: always()
+        run: sudo killall openvpn
+
+env:
+  CLOUDIFY_HOST: ${{ secrets.CLOUDIFY_HOST }}
+  CLOUDIFY_USERNAME: ${{ secrets.CLOUDIFY_USERNAME }}
+  CLOUDIFY_PASSWORD: ${{ secrets.CLOUDIFY_PASSWORD }}
+  CLOUDIFY_TENANT: ${{ secrets.CLOUDIFY_TENANT }}
+  EAAS_BLUEPRINT_ID: ${{ secrets.EAAS_BLUEPRINT_ID }}
+  EAAS_DEPLOYMENT_ID: ${{ secrets.AWS_EAAS_DEPLOYMENT_ID }}
+  CLOUDIFY_SSL: ${{ secrets.CLOUDIFY_SSL }}
+  CLOUDIFY_SSL_TRUST_ALL: ${{ secrets.CLOUDIFY_SSL_TRUST_ALL }}
