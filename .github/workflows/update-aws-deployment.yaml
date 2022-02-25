@@ -31,7 +31,7 @@ jobs:
           environment-name: $EAAS_DEPLOYMENT_ID
           blueprint-id: $EAAS_BLUEPRINT_ID
           delete-old-blueprint: false
-          inputs-file: ".github/inputs/inputs.yaml"
+          inputs-file: ".github/inputs/inputs-aws.yaml"
       - name: kill vpn
         if: always()
         run: sudo killall openvpn
