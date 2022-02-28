@@ -5,6 +5,11 @@ imports:
   - https://cloudify.co/spec/cloudify/6.2.0/types.yaml
   - plugin:cloudify-terraform-plugin
 
+inputs:
+  vpc_tf_url:
+    type: string
+    default: https://github.com/marrowne/wwt-tf-templates/archive/refs/heads/master.zip
+
 node_templates:
 
   terraform:
@@ -15,7 +20,8 @@ node_templates:
     properties:
       resource_config:
         source:
-          location: templates/vpc.zip
+          location: { get_input: vpc_tf_url }
+        source_path: aws/vpc
         variables:
           access_key: { get_secret: aws_access_key_id }
           secret_key: { get_secret: aws_secret_access_key }

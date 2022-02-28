@@ -5,13 +5,19 @@ imports:
   - plugin:cloudify-terraform-plugin
   - plugin:cloudify-ansible-plugin
 
+inputs:
+  vm_tf_url:
+    type: string
+    default: https://github.com/marrowne/wwt-tf-templates/archive/refs/heads/master.zip
+
 node_templates:
   vm:
     type: cloudify.nodes.terraform.Module
     properties:
       resource_config:
         source:
-          location: templates/vm.zip
+          location: { get_input: vm_tf_url }
+        source_path: aws/vm
         variables:
           access_key: { get_secret: aws_access_key_id }
           secret_key: { get_secret: aws_secret_access_key }

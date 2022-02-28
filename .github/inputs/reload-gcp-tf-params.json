@@ -1,6 +1,6 @@
 {
-  "source": "https://github.com/Cloudify-PS/wwt-eaas-poc/archive/refs/heads/main.zip",
-  "source_path": "gcp/templates/vm/",
+  "source": "https://github.com/marrowne/wwt-tf-templates/archive/refs/heads/master.zip",
+  "source_path": "gcp/vm/",
   "node_ids": ["vm"],
   "force": true
 }
