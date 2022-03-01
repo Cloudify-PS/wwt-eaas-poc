@@ -17,7 +17,7 @@ node_templates:
       resource_config:
         source:
           location: { get_input: vm_tf_url }
-        source_path: aws/vm
+        source_path: templates/aws/vm
         variables:
           access_key: { get_secret: aws_access_key_id }
           secret_key: { get_secret: aws_secret_access_key }

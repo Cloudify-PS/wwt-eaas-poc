@@ -1,6 +1,6 @@
 {
   "source": "https://github.com/marrowne/wwt-tf-templates/archive/refs/heads/master.zip",
-  "source_path": "aws/vm/",
+  "source_path": "templates/aws/vm",
   "node_ids": ["vm"],
   "force": true
 }
