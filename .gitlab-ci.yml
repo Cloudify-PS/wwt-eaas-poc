@@ -1,6 +1,7 @@
 update-aws-deployment:
   image: jrzeszutek/cfyci:6.2.0
   variables:
+    GIT_CHECKOUT: "true"
     INPUTS-FILE: "inputs/inputs-aws.yaml"
     SKIP-INSTALL: "false"
     SKIP-UNINSTALL: "false"
@@ -17,6 +18,7 @@ update-aws-deployment:
 update-gcp-deployment:
   image: jrzeszutek/cfyci:6.2.0
   variables:
+    GIT_CHECKOUT: "true"
     INPUTS-FILE: "inputs/inputs-gcp.yaml"
     SKIP-INSTALL: "false"
     SKIP-UNINSTALL: "false"
