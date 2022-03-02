@@ -1,5 +1,5 @@
 cloud: aws
-env_type: dev
+env_type: prod
 ttl: 240
 app_type: nginx
 app_port: 8080
