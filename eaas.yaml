@@ -118,7 +118,7 @@ node_templates:
                   webservers:
                     hosts:
                       web:
-                        ansible_host: { get_attribute: [ TARGET, capabilities, ip_address ] }
+                        ansible_host: { get_capability: [ {get_attribute: [server, deployment, id] } , ip_address ] }
                         ansible_user: ubuntu
                         ansible_ssh_private_key_file: { get_secret: private_key_content }
                         ansible_become: true
