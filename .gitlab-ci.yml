@@ -10,6 +10,8 @@ update-aws-deployment:
     DELETE-OLD-BLUEPRINT: "false"
     LABELS: "-"
   script:
+    - echo $INPUTS-FILE
+    - cat $INPUTS-FILE
     - cfyci install-or-update --name $AWS_EAAS_DEPLOYMENT_ID --blueprint-id $EAAS_BLUEPRINT_ID --delete-old-blueprint $DELETE-OLD-BLUEPRINT --inputs-file $INPUTS-FILE --labels $LABELS --skip-install $SKIP-INSTALL --skip-uninstall $SKIP-UNINSTALL --skip-reinstall $SKIP-REINSTALL --install-first $INSTALL-FIRST --outputs-file $OUTPUTS-FILE
   tags:
     - docker
