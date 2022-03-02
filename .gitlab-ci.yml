@@ -3,8 +3,6 @@ update-aws-deployment:
     - changes:
         - inputs/inputs-aws.yaml
   image: jrzeszutek/cfyci:6.2.0
-  script:
-    - cfyci install-or-update --name $AWS_EAAS_DEPLOYMENT_ID --blueprint-id $EAAS_BLUEPRINT_ID --delete-old-blueprint $DELETE_OLD_BLUEPRINT --inputs-file $INPUTS_FILE --labels $LABELS --skip-install $SKIP_INSTALL --skip-uninstall $SKIP_UNINSTALL --skip-reinstall $SKIP_REINSTALL --install-first $INSTALL_FIRST --outputs-file $OUTPUTS_FILE
   variables:
     GIT_CHECKOUT: "true"
     INPUTS_FILE: "inputs/inputs-aws.yaml"
@@ -15,6 +13,18 @@ update-aws-deployment:
     OUTPUTS_FILE: "-"
     DELETE_OLD_BLUEPRINT: "false"
     LABELS: "-"
+  script: >
+    cfyci install-or-update 
+    --name $AWS_EAAS_DEPLOYMENT_ID 
+    --blueprint-id $EAAS_BLUEPRINT_ID 
+    --delete-old-blueprint $DELETE_OLD_BLUEPRINT 
+    --inputs-file $INPUTS_FILE 
+    --labels $LABELS 
+    --skip-install $SKIP_INSTALL 
+    --skip-uninstall $SKIP_UNINSTALL 
+    --skip-reinstall $SKIP_REINSTALL 
+    --install-first $INSTALL_FIRST 
+    --outputs-file $OUTPUTS_FILE
   tags:
     - docker
 
@@ -23,8 +33,6 @@ update-gcp-deployment:
     - changes:
         - inputs/inputs-gcp.yaml
   image: jrzeszutek/cfyci:6.2.0
-  script:
-    - cfyci install-or-update --name $GCP_EAAS_DEPLOYMENT_ID --blueprint-id $EAAS_BLUEPRINT_ID --delete-old-blueprint $DELETE_OLD_BLUEPRINT --inputs-file $INPUTS_FILE --labels $LABELS --skip-install $SKIP_INSTALL --skip-uninstall $SKIP_UNINSTALL --skip-reinstall $SKIP_REINSTALL --install-first $INSTALL_FIRST --outputs-file $OUTPUTS_FILE
   variables:
     GIT_CHECKOUT: "true"
     INPUTS_FILE: "inputs/inputs-gcp.yaml"
@@ -35,5 +43,17 @@ update-gcp-deployment:
     OUTPUTS_FILE: "-"
     DELETE_OLD_BLUEPRINT: "false"
     LABELS: "-"
+  script: >
+    cfyci install-or-update 
+    --name $GCP_EAAS_DEPLOYMENT_ID 
+    --blueprint-id $EAAS_BLUEPRINT_ID 
+    --delete-old-blueprint $DELETE_OLD_BLUEPRINT 
+    --inputs-file $INPUTS_FILE 
+    --labels $LABELS 
+    --skip-install $SKIP_INSTALL 
+    --skip-uninstall $SKIP_UNINSTALL 
+    --skip-reinstall $SKIP_REINSTALL 
+    --install-first $INSTALL_FIRST 
+    --outputs-file $OUTPUTS_FILE
   tags:
     - docker
