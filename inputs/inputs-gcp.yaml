@@ -1,5 +1,5 @@
 cloud: gcp
-env_type: dev
+env_type: test
 ttl: 240
 app_type: nginx
 app_port: 8080
