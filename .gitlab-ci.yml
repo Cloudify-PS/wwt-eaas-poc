@@ -1,7 +1,7 @@
 update-aws-deployment:
   image: jrzeszutek/cfyci:6.2.0
   variables:
-    INPUTS-FILE: "inputs/inputs-aws.yaml"
+    INPUTS_FILE: "inputs/inputs-aws.yaml"
     SKIP-INSTALL: "false"
     SKIP-UNINSTALL: "false"
     SKIP-REINSTALL: "false"
@@ -10,14 +10,14 @@ update-aws-deployment:
     DELETE-OLD-BLUEPRINT: "false"
     LABELS: "-"
   script:
-    - cfyci install-or-update --name $AWS_EAAS_DEPLOYMENT_ID --blueprint-id $EAAS_BLUEPRINT_ID --delete-old-blueprint $DELETE-OLD-BLUEPRINT --inputs-file $INPUTS-FILE --labels $LABELS --skip-install $SKIP-INSTALL --skip-uninstall $SKIP-UNINSTALL --skip-reinstall $SKIP-REINSTALL --install-first $INSTALL-FIRST --outputs-file $OUTPUTS-FILE
+    - cfyci install-or-update --name $AWS_EAAS_DEPLOYMENT_ID --blueprint-id $EAAS_BLUEPRINT_ID --delete-old-blueprint $DELETE-OLD-BLUEPRINT --inputs-file $INPUTS_FILE --labels $LABELS --skip-install $SKIP-INSTALL --skip-uninstall $SKIP-UNINSTALL --skip-reinstall $SKIP-REINSTALL --install-first $INSTALL-FIRST --outputs-file $OUTPUTS-FILE
   tags:
     - docker
       
 update-gcp-deployment:
   image: jrzeszutek/cfyci:6.2.0
   variables:
-    INPUTS-FILE: "inputs/inputs-gcp.yaml"
+    INPUTS_FILE: "inputs/inputs-gcp.yaml"
     SKIP-INSTALL: "false"
     SKIP-UNINSTALL: "false"
     SKIP-REINSTALL: "false"
@@ -26,6 +26,6 @@ update-gcp-deployment:
     DELETE-OLD-BLUEPRINT: "false"
     LABELS: "-"
   script:
-    - cfyci install-or-update --name $GCP_EAAS_DEPLOYMENT_ID --blueprint-id $EAAS_BLUEPRINT_ID --delete-old-blueprint $DELETE-OLD-BLUEPRINT --inputs-file $INPUTS-FILE --labels $LABELS --skip-install $SKIP-INSTALL --skip-uninstall $SKIP-UNINSTALL --skip-reinstall $SKIP-REINSTALL --install-first $INSTALL-FIRST --outputs-file $OUTPUTS-FILE
+    - cfyci install-or-update --name $GCP_EAAS_DEPLOYMENT_ID --blueprint-id $EAAS_BLUEPRINT_ID --delete-old-blueprint $DELETE-OLD-BLUEPRINT --inputs-file $INPUTS_FILE --labels $LABELS --skip-install $SKIP-INSTALL --skip-uninstall $SKIP-UNINSTALL --skip-reinstall $SKIP-REINSTALL --install-first $INSTALL-FIRST --outputs-file $OUTPUTS-FILE
   tags:
     - docker
