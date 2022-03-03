@@ -15,15 +15,6 @@ inputs:
           - aws
           - gcp
 
-  env_type:
-    type: string
-    default: dev
-    constraints:
-      - valid_values:
-        - dev
-        - qa
-        - prod
-
   ttl:
     type: integer
     description: |
@@ -93,12 +84,12 @@ node_templates:
     properties:
       resource_config:
         blueprint:
-          id: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, blueprint] }
+          id: { get_secret: [eaas_params, { get_input: cloud }, blueprint] }
           external_resource: true
         deployment:
-          id: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, deployment] }
+          id: { get_secret: [eaas_params, { get_input: cloud }, deployment] }
           inputs:
-            resource_config: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, inputs] }
+            resource_config: { get_secret: [eaas_params, { get_input: cloud }, inputs] }
           auto_inc_suffix: true
 
   app:
@@ -124,7 +115,7 @@ node_templates:
                         ansible_become: true
                         ansible_ssh_common_args: -o StrictHostKeyChecking=no
                 run_data:
-                  message: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, message] }
+                  message: { get_secret: [eaas_params, { get_input: cloud }, message] }
                   version: { get_input: app_version }
                   port: { get_input: app_port }
             unlink:

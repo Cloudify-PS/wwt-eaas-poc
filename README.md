@@ -18,7 +18,7 @@ The blueprints assume that you have the following secrets defined:
 
 ## Usage
 
-First, upload the EaaS secrets file in [secrets/eaas_params.json](./secrets/eaas_params.json).
+First, upload the EaaS secrets file in [secrets/eaas_params_{dev/qa/prod}.json](./secrets/eaas_params_dev.json).
 
 Then, upload the three necessary blueprints: `aws-nginx.yaml`, `gcp-nginx.yaml`, and `eaas.yaml`.
 
