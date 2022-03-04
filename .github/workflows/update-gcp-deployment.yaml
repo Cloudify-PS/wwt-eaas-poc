@@ -11,20 +11,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install Open VPN
-        run: sudo apt-get install openvpn
-      - name: Connect VPN
-        uses: golfzaptw/action-connect-ovpn@master
-        id: connect_vpn
-        with:
-          PING_URL: '127.0.0.1'
-          FILE_OVPN: '.github/vpn/config.ovpn'
-        env:
-          CA_CRT: ${{ secrets.CA_CRT}}
-          USER_CRT: ${{ secrets.USER_CRT }}
-          USER_KEY: ${{ secrets.USER_KEY }}
-      - name: Check Connect VPN
-        run: echo ${{ steps.connect_vpn.outputs.STATUS }}
       - name: Install or Update EaaS
         uses: jrzeszutek/install-or-update-action@v1.2.1
         with:
@@ -32,9 +18,6 @@ jobs:
           blueprint-id: $EAAS_BLUEPRINT_ID
           delete-old-blueprint: false
           inputs-file: ".github/inputs/inputs-gcp.yaml"
-      - name: kill vpn
-        if: always()
-        run: sudo killall openvpn
 
 env:
   CLOUDIFY_HOST: ${{ secrets.CLOUDIFY_HOST }}
