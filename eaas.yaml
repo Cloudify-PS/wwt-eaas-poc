@@ -106,6 +106,9 @@ node_templates:
           inputs:
             resource_config: { get_secret: [eaas_params, { get_input: cloud }, inputs] }
           auto_inc_suffix: true
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: agent_key
 
   app:
     type: cloudify.nodes.ansible.Playbook
