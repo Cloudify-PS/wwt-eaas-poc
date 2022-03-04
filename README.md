@@ -4,7 +4,8 @@
 
 * `aws-nginx.yaml` - Instantiates one or more instances on AWS
 * `gcp-nginx.yaml` - Instantiates one or more instances on GCP
-* `eaas.yaml` - Uses service composition to deploy one or more app servers, configured via Ansible, on AWS or GCP.
+* `eaas.yaml` - Uses service composition to deploy one or more app servers, configured via Ansible, on AWS or GCP
+* `blueprint.yaml` - Uses service composition to deploy GitHub terraform repository.
 
 # Prerequisites
 
@@ -13,6 +14,10 @@ The blueprints assume that you have the following secrets defined:
 * `aws_access_key_id` - AWS access key ID
 * `aws_secret_access_key` - AWS secret access key
 * `gcp_credentials_json` - Credentials file for GCP
+* `cloudify_host` - Cloudify Manager address used by GitHub Actions 
+* `cloudify_user` - Cloudify Manager username
+* `cloudify_password` - Cloudify Manager password
+* `github_token` - [GitHub Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with delete_repo & repo scopes.
 
 ## Usage
 
