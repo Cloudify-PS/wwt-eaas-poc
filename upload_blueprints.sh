@@ -3,7 +3,7 @@
 set -e
 
 # Upload EaaS secret
-cfy secrets create eaas_params -uf secrets/eaas_params_${1:dev}.json
+cfy secrets create eaas_params -uf secrets/eaas_params_${1:-dev}.json
 
 # Upload AWS blueprint
 zip -r aws_blueprint.zip aws/

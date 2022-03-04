@@ -13,8 +13,6 @@ The blueprints assume that you have the following secrets defined:
 * `aws_access_key_id` - AWS access key ID
 * `aws_secret_access_key` - AWS secret access key
 * `gcp_credentials_json` - Credentials file for GCP
-* `private_key_content` - An SSH private key to install on the managed instances so that Ansible can connect
-* `public_key_content` - An SSH public key for the corresponding private key
 
 ## Usage
 

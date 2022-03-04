@@ -27,7 +27,7 @@ node_templates:
           project: { get_input: [resource_config, project_id] }
           zone: { get_input: [resource_config, zone_name] }
           admin_user: ubuntu
-          admin_key_public: { get_secret: public_key_content }
+          admin_key_public: { get_secret: cert_key_public }
           prefix: { get_input: [resource_config, prefix] }
           instance_type: { get_input: [resource_config, instance_type] }
     relationships:
