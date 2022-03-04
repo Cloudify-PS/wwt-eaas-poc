@@ -1,0 +1,59 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - https://cloudify.co/spec/cloudify/6.2.0/types.yaml
+
+inputs:
+  cloud:
+    type: string
+    default: aws
+    constraints:
+      - valid_values:
+          - aws
+          - gcp
+
+  app_port:
+    type: integer
+    description: |
+      Port to be used in the webserver
+    default: 80
+    constraints:
+      - valid_values:
+        - 80
+        - 8080
+        - 8081
+
+  repo_name:
+    type: string
+    default: wwt-tf
+
+node_templates:
+  tf_repo:
+    type: cloudify.nodes.ServiceComponent
+    properties:
+      resource_config:
+        blueprint:
+          external_resource: true
+          id: terraform-repository
+        deployment:
+          id: terraform-repository
+          auto_inc_suffix: true
+          inputs:
+            app_name: { get_input: repo_name }
+
+  nginx_eaas:
+    type: cloudify.nodes.ServiceComponent
+    properties:
+      resource_config:
+        blueprint:
+          id: nginx-eaas
+          external_resource: true
+        deployment:
+          id: { concat: [ "nginx-eaas-", { get_input: cloud } ] }
+          inputs:
+            cloud: { get_input: cloud }
+            app_port: { get_input: app_port }
+          auto_inc_suffix: true
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: tf_repo
