@@ -8,7 +8,7 @@ imports:
 inputs:
   vm_tf_url:
     type: string
-    default: https://github.com/marrowne/wwt-tf-templates/archive/refs/heads/master.zip
+    default: https://github.com/Cloudify-PS/wwt-tf-templates/archive/refs/heads/master.zip
 
 node_templates:
 
