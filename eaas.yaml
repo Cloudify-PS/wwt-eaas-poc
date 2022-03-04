@@ -5,6 +5,7 @@ imports:
   - https://cloudify.co/spec/cloudify/6.2.0/types.yaml
   - plugin:cloudify-ansible-plugin
   - plugin:cloudify-utilities-plugin?version= >=1.25.3
+  - common/tf-repo.yaml
 
 inputs:
 
@@ -109,6 +110,8 @@ node_templates:
     relationships:
       - type: cloudify.relationships.depends_on
         target: agent_key
+      - type: cloudify.relationships.depends_on
+        target: tf_repo
 
   app:
     type: cloudify.nodes.ansible.Playbook

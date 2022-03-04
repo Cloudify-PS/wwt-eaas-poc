@@ -20,7 +20,6 @@ rm aws_blueprint.zip gcp_blueprint.zip
 pushd ..
 zip -r eaas_nginx_blueprint.zip .${OLDPWD#$PWD}
 cfy blueprint upload -b nginx-eaas -n eaas.yaml eaas_nginx_blueprint.zip
-cfy blueprint upload -b wwt-eaas-poc -n blueprint.yaml eaas_nginx_blueprint.zip
 
 # Cleanup
 rm eaas_nginx_blueprint.zip
