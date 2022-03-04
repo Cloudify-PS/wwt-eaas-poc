@@ -4,7 +4,8 @@
 
 * `aws-nginx.yaml` - Instantiates one or more instances on AWS
 * `gcp-nginx.yaml` - Instantiates one or more instances on GCP
-* `eaas.yaml` - Uses service composition to deploy one or more app servers, configured via Ansible, on AWS or GCP.
+* `eaas.yaml` - Uses service composition to deploy one or more app servers, configured via Ansible, on AWS or GCP
+* `blueprint.yaml` - Uses service composition to deploy GitHub terraform repository.
 
 # Prerequisites
 
@@ -13,19 +14,21 @@ The blueprints assume that you have the following secrets defined:
 * `aws_access_key_id` - AWS access key ID
 * `aws_secret_access_key` - AWS secret access key
 * `gcp_credentials_json` - Credentials file for GCP
-* `private_key_content` - An SSH private key to install on the managed instances so that Ansible can connect
-* `public_key_content` - An SSH public key for the corresponding private key
+* `cloudify_host` - Cloudify Manager address used by GitHub Actions 
+* `cloudify_user` - Cloudify Manager username
+* `cloudify_password` - Cloudify Manager password
+* `github_token` - [GitHub Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with delete_repo & repo scopes.
 
 ## Usage
 
-First, upload the EaaS secrets file in [secrets/eaas_params.json](./secrets/eaas_params.json).
+First, upload the EaaS secrets file in [secrets/eaas_params_{dev/qa/prod}.json](./secrets/eaas_params_dev.json).
 
 Then, upload the three necessary blueprints: `aws-nginx.yaml`, `gcp-nginx.yaml`, and `eaas.yaml`.
 
-There is a helper script that you can run to handle this:
+There is a helper script that you can run to handle this. The script takes one parameter, valid values are:  `dev`/`prod`/`qa`. Cloudify tenants can be changed using [cfy profile](https://docs.cloudify.co/latest/cli/maint_cli/profiles/) from Cloudify CLI.
 
 ```
-❯ ./upload_blueprints.sh
+❯ ./upload_blueprints.sh dev
 Secret `eaas_params` created
 ...
 Uploading blueprint aws_blueprint.zip...

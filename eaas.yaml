@@ -4,6 +4,8 @@ tosca_definitions_version: cloudify_dsl_1_3
 imports:
   - https://cloudify.co/spec/cloudify/6.2.0/types.yaml
   - plugin:cloudify-ansible-plugin
+  - plugin:cloudify-utilities-plugin?version= >=1.25.3
+  - common/tf-repo.yaml
 
 inputs:
 
@@ -14,15 +16,6 @@ inputs:
       - valid_values:
           - aws
           - gcp
-
-  env_type:
-    type: string
-    default: dev
-    constraints:
-      - valid_values:
-        - dev
-        - qa
-        - prod
 
   ttl:
     type: integer
@@ -82,6 +75,20 @@ node_types:
           executor: central_deployment_agent
 
 node_templates:
+  agent_key:
+    type: cloudify.keys.nodes.RSAKey
+    properties:
+      resource_config:
+        key_name: cert_key
+        openssh_format: true
+      use_secret_store: true
+      use_secrets_if_exist: true
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          implementation: keys.cloudify_ssh_key.operations.create
+          inputs:
+            store_private_key_material: true
 
   ttl:
     type: cloudify.nodes.TTL
@@ -93,13 +100,18 @@ node_templates:
     properties:
       resource_config:
         blueprint:
-          id: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, blueprint] }
+          id: { get_secret: [eaas_params, { get_input: cloud }, blueprint] }
           external_resource: true
         deployment:
-          id: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, deployment] }
+          id: { get_secret: [eaas_params, { get_input: cloud }, deployment] }
           inputs:
-            resource_config: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, inputs] }
+            resource_config: { get_secret: [eaas_params, { get_input: cloud }, inputs] }
           auto_inc_suffix: true
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: agent_key
+      - type: cloudify.relationships.depends_on
+        target: tf_repo
 
   app:
     type: cloudify.nodes.ansible.Playbook
@@ -118,13 +130,13 @@ node_templates:
                   webservers:
                     hosts:
                       web:
-                        ansible_host: { get_attribute: [ TARGET, capabilities, ip_address ] }
+                        ansible_host: { get_capability: [ {get_attribute: [server, deployment, id] } , ip_address ] }
                         ansible_user: ubuntu
-                        ansible_ssh_private_key_file: { get_secret: private_key_content }
+                        ansible_ssh_private_key_file: { get_attribute: [agent_key, private_key_export] }
                         ansible_become: true
                         ansible_ssh_common_args: -o StrictHostKeyChecking=no
                 run_data:
-                  message: { get_secret: [eaas_params, { get_input: cloud }, { get_input: env_type }, message] }
+                  message: { get_secret: [eaas_params, { get_input: cloud }, message] }
                   version: { get_input: app_version }
                   port: { get_input: app_port }
             unlink:
