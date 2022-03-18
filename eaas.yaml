@@ -106,6 +106,7 @@ node_templates:
           id: { get_secret: [eaas_params, { get_input: cloud }, deployment] }
           inputs:
             resource_config: { get_secret: [eaas_params, { get_input: cloud }, inputs] }
+            repo_full_name: { get_capability: [ { get_attribute: [tf_repo, deployment, id] }, repo_full_name ] }
           auto_inc_suffix: true
     relationships:
       - type: cloudify.relationships.depends_on

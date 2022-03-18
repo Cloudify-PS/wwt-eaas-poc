@@ -8,7 +8,11 @@ imports:
 inputs:
   vpc_tf_url:
     type: string
-    default: https://github.com/Cloudify-PS/wwt-tf-templates/archive/refs/heads/master.zip
+    default:
+      concat:
+        - https://github.com/
+        - { get_input: repo_full_name }
+        - "/archive/refs/heads/master.zip"
 
 node_templates:
 
@@ -21,6 +25,8 @@ node_templates:
       resource_config:
         source:
           location: { get_input: vpc_tf_url }
+          username: { get_secret: github_token }
+          password: x-oauth-basic
         source_path: templates/aws/vpc
         variables:
           access_key: { get_secret: aws_access_key_id }

@@ -20,3 +20,6 @@ data_types:
 inputs:
   resource_config:
     type: resource_config
+
+  repo_full_name:
+    type: string
