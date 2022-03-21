@@ -22,3 +22,5 @@ node_templates:
           auto_inc_suffix: true
           inputs:
             app_name: { get_input: repo_name }
+            aws_deployment_prefix: { get_secret: [eaas_params, aws, deployment] }
+            gcp_deployment_prefix: { get_secret: [eaas_params, gcp, deployment] }
