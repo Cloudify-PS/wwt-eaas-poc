@@ -1,5 +1,7 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
+description: >
+  This is main blueprint - repo and instance wapper.
 
 imports:
   - https://cloudify.co/spec/cloudify/6.2.0/types.yaml
@@ -146,6 +148,14 @@ outputs:
   server_ips:
     description: Web server IPs
     value: { get_attributes_list: [server, capabilities] }
+
+  port:
+    description: Application port
+    value: { get_input: app_port }
+
+  tf_repo_url:
+    description: Terraform repository URL
+    value: { get_capability: [ { get_attribute: [tf_repo, deployment, id] }, repo_url ] }
 
 groups:
   server_and_app:
