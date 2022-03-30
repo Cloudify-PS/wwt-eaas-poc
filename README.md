@@ -22,6 +22,8 @@ The blueprints assume that you have the following secrets defined:
 * `runner_vm_user` - Runner's SSH user, eg. `labuser`
 * `runner_root_user` - Runner's SSH root, eg. `root`
 * `runner_key_private` - Runner's SSH private key
+
+Please make sure that your GitHub self-hosted runner satisfies all [requirements](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners#requirements-for-self-hosted-runner-machines), and it has Docker installed.
 ## Usage
 
 First, upload the EaaS secrets file in [secrets/eaas_params_{dev/qa/prod}.json](./secrets/eaas_params_dev.json).
