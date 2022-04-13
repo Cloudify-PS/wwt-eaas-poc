@@ -49,10 +49,10 @@ inputs:
     type: string
     description: |
       Version of the webserver package to be installed
-    default: 1.18.0-0ubuntu1.2
+    default: 1.18.0-0ubuntu1.3
     constraints:
       - valid_values:
-        - 1.18.0-0ubuntu1.2
+        - 1.18.0-0ubuntu1.3
         - 1.18.0-1~focal
         - 1.18.0-2~focal
         - 1.20.0-1~focal
