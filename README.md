@@ -5,7 +5,7 @@
 * `aws-nginx.yaml` - Instantiates one or more instances on AWS
 * `gcp-nginx.yaml` - Instantiates one or more instances on GCP
 * `eaas.yaml` - Uses service composition to deploy one or more app servers, configured via Ansible, on AWS or GCP
-* `blueprint.yaml` - Uses service composition to deploy GitHub terraform repository.
+* `blueprint.yaml` - Placed in [Cloudify-PS/wwt-tf-templates](https://github.com/Cloudify-PS/wwt-tf-templates/blob/master/blueprint.yaml) repo. Uses service composition to deploy GitHub terraform repository.
 
 # Prerequisites
 
