@@ -23,7 +23,7 @@ inputs:
     type: integer
     description: |
       Minutes of time to live after which the environment will be uninstalled
-    default: 60
+    default: 4320
   
   app_type:
     type: string
@@ -110,6 +110,20 @@ node_templates:
             resource_config: { get_secret: [eaas_params, { get_input: cloud }, inputs] }
             repo_full_name: { get_capability: [ { get_attribute: [tf_repo, deployment, id] }, repo_full_name ] }
           auto_inc_suffix: true
+    interfaces:
+      terraform:
+        reload:
+          implementation: cfy_extensions.cloudify_types.component.execute_start
+          inputs:
+            resource_config:
+              executions_start_args:
+                parameters:
+                  node_ids: [ vm ]
+                  force: true
+              deployment:
+                id: { get_attribute: [ SELF, deployment, id ] }
+            workflow_id: reload_terraform_template
+
     relationships:
       - type: cloudify.relationships.depends_on
         target: agent_key
@@ -147,7 +161,7 @@ node_templates:
 outputs:
   server_ips:
     description: Web server IPs
-    value: { get_attributes_list: [server, capabilities] }
+    value: { get_attributes_list: [server, capabilities, ip_address] }
 
   port:
     description: Application port
